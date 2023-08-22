@@ -1,4 +1,4 @@
-import type { Store } from "@prisma/client";
+import { Store } from "@/generated/client/deno/edge.ts";
 
 export interface CommonStoreState {
   open: boolean;
@@ -18,12 +18,13 @@ export interface ErrorStoreState {
   error: string;
 }
 
-export type StoreState = (
-  | LoadingStoreState
-  | LoadedStoreState
-  | ErrorStoreState
-) &
-  CommonStoreState;
+export type StoreState =
+  & (
+    | LoadingStoreState
+    | LoadedStoreState
+    | ErrorStoreState
+  )
+  & CommonStoreState;
 
 export const storeInitialState: StoreState = {
   kind: "LoadingStoreState",

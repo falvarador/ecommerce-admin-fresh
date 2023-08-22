@@ -1,4 +1,5 @@
 import { AppProps } from "$fresh/server.ts";
+import { asset } from "$fresh/runtime.ts";
 
 export default function App({ Component }: AppProps) {
   return (
@@ -6,7 +7,8 @@ export default function App({ Component }: AppProps) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>shoelace-style</title>
+        <link rel="stylesheet" href={asset("/styles/tailwind.css")} />
+        <title>Ecommerce Admin</title>
       </head>
       <body>
         <Component />

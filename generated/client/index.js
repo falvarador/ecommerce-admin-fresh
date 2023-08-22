@@ -21,7 +21,7 @@ const {
   warnOnce,
   defineDmmfProperty,
   Public,
-} = require('./runtime/data-proxy')
+} = require('./runtime/library')
 
 
 const Prisma = {}
@@ -146,8 +146,8 @@ const config = {
     "db"
   ],
   "activeProvider": "mysql",
-  "dataProxy": true,
-  "postinstall": false
+  "dataProxy": false,
+  "postinstall": true
 }
 
 const fs = require('fs')
@@ -171,20 +171,10 @@ config.runtimeDataModel = JSON.parse("{\"models\":{\"Store\":{\"dbName\":null,\"
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 
 
-config.inlineSchema = 'Ly8gVGhpcyBpcyB5b3VyIFByaXNtYSBzY2hlbWEgZmlsZSwKLy8gbGVhcm4gbW9yZSBhYm91dCBpdCBpbiB0aGUgZG9jczogaHR0cHM6Ly9wcmlzLmx5L2QvcHJpc21hLXNjaGVtYQoKZ2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgICAgICAgID0gInByaXNtYS1jbGllbnQtanMiCiAgcHJldmlld0ZlYXR1cmVzID0gWyJkZW5vIl0KICBvdXRwdXQgICAgICAgICAgPSAiLi4vZ2VuZXJhdGVkL2NsaWVudCIKfQoKZGF0YXNvdXJjZSBkYiB7CiAgcHJvdmlkZXIgICAgID0gIm15c3FsIgogIHVybCAgICAgICAgICA9IGVudigiREFUQUJBU0VfVVJMIikKICByZWxhdGlvbk1vZGUgPSAicHJpc21hIgp9Cgptb2RlbCBTdG9yZSB7CiAgaWQgICAgICAgIFN0cmluZyAgIEBpZCBAZGVmYXVsdCh1dWlkKCkpCiAgbmFtZSAgICAgIFN0cmluZwogIHVzZXJJZCAgICBTdHJpbmcKICBjcmVhdGVkQXQgRGF0ZVRpbWUgQGRlZmF1bHQobm93KCkpCiAgdXBkYXRlZEF0IERhdGVUaW1lIEB1cGRhdGVkQXQKfQo='
-config.inlineSchemaHash = '6af5970e7568c90d74274f925fc7f6cece12e6b849f3e15a2856b0a19b41487b'
-
-config.inlineDatasources = {
-  "db": {
-    "url": {
-      "fromEnvVar": "DATABASE_URL",
-      "value": null
-    }
-  }
-}
 
 
-const { warnEnvConflicts } = require('./runtime/data-proxy')
+
+const { warnEnvConflicts } = require('./runtime/library')
 
 warnEnvConflicts({
     rootEnvPath: config.relativeEnvPaths.rootEnvPath && path.resolve(config.dirname, config.relativeEnvPaths.rootEnvPath),
@@ -195,3 +185,7 @@ const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
+path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
+path.join(process.cwd(), "generated/client/libquery_engine-darwin-arm64.dylib.node")
+path.join(__dirname, "schema.prisma");
+path.join(process.cwd(), "generated/client/schema.prisma")

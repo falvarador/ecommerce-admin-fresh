@@ -4,26 +4,24 @@ import { DataError, Either } from "@/src/core/common/domain/index.ts";
 import { Store } from "@/generated/client/deno/edge.ts";
 import { PrismaClient } from "@/generated/client/deno/edge.js";
 
-export class StorePrismaRepository implements StoreRepository {
-  private const prismadb: PrismaClient;
-  
-  constructor() {
-    const envVars = await load();
+const env = await load();
 
-    prismadb = new PrismaClient({
+export class StorePrismaRepository implements StoreRepository {
+  private prisma = new PrismaClient(
+    {
       datasources: {
         db: {
-          url: envVars.DATABASE_URL,
+          url: env.DATABASE_URL,
         },
       },
-    });
-  }
+    },
+  );
 
   get(userId: string, storeId: string): Promise<Either<DataError, Store>> {
     return new Promise((resolve, _reject) => {
       setTimeout(async () => {
         try {
-          const store = await this.prismadb.store.findUnique({
+          const store = await this.prisma.store.findUnique({
             where: {
               id: storeId,
               userId,
@@ -39,9 +37,9 @@ export class StorePrismaRepository implements StoreRepository {
   }
 
   getByUserId(userId: string): Promise<Either<DataError, Store>> {
-    return new Promise(async (resolve, _reject) => {
+    return new Promise((resolve, _reject) => {
       try {
-        const store = await prismadb.store.findFirst({
+        const store = this.prisma.store.findFirst({
           where: {
             userId,
           },
@@ -55,9 +53,9 @@ export class StorePrismaRepository implements StoreRepository {
   }
 
   save(userId: string, name: string): Promise<Either<DataError, Store>> {
-    return new Promise(async (resolve, _reject) => {
+    return new Promise((resolve, _reject) => {
       try {
-        const store = await prismadb.store.create({
+        const store = this.prisma.store.create({
           data: {
             name,
             userId,

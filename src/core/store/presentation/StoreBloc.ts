@@ -1,18 +1,21 @@
-import type { DataError, Either } from "~/core/common/domain";
-import { Bloc } from "~/core/common/presentation";
-import { storeInitialState, type StoreState } from "~/core/store/presentation";
-import type {
+import { Store } from "@/generated/client/deno/edge.ts";
+import {
+  storeInitialState,
+  StoreState,
+} from "@/src/core/store/presentation/index.ts";
+import { Bloc } from "@/src/core/common/presentation/index.ts";
+import {
   GetStoreByUserIdUseCase,
   GetStoreUseCase,
   SaveStoreUseCase,
-} from "~/core/store/domain/usecases/";
-import type { Store } from "@prisma/client";
+} from "@/src/core/store/domain/usecases/index.ts";
+import { DataError, Either } from "@/src/core/common/domain/index.ts";
 
 export class StoreBloc extends Bloc<StoreState> {
   constructor(
     private getStoreByUserIdUseCase: GetStoreByUserIdUseCase,
     private getStoreUseCase: GetStoreUseCase,
-    private saveStoreUseCase: SaveStoreUseCase
+    private saveStoreUseCase: SaveStoreUseCase,
   ) {
     super(storeInitialState);
   }
@@ -30,7 +33,7 @@ export class StoreBloc extends Bloc<StoreState> {
 
     result.fold(
       (error) => this.changeState(this.handleError(error)),
-      (store) => store
+      (store) => store,
     );
   }
 
@@ -39,7 +42,7 @@ export class StoreBloc extends Bloc<StoreState> {
 
     result.fold(
       (error) => this.changeState(this.handleError(error)),
-      (store) => store
+      (store) => store,
     );
 
     return result;
@@ -47,13 +50,13 @@ export class StoreBloc extends Bloc<StoreState> {
 
   async loadStore(
     userId: string,
-    storeId: string
+    storeId: string,
   ): Promise<Either<DataError, Store>> {
     const result = await this.getStoreUseCase.execute(userId, storeId);
 
     result.fold(
       (error) => this.changeState(this.handleError(error)),
-      (store) => store
+      (store) => store,
     );
 
     return result;
