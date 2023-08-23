@@ -3,7 +3,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { cn } from "@/src/lib/utils.ts";
 
 const labelVariants = cva(
-  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+  "block mb-2 text-sm font-medium text-gray-900 dark:text-white",
 );
 
 const Label = (

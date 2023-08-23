@@ -31,6 +31,7 @@
     "clsx": "https://esm.sh/clsx@2.0.0",
     "lucide-preact": "https://esm.sh/lucide-preact@0.268.0",
     "tailwind-merge": "https://esm.sh/tailwind-merge@1.14.0",
+    "@clerk/clerk-js": "https://esm.sh/@clerk/clerk-js@4.55.0",
     "$fresh/": "https://deno.land/x/fresh@1.4.2/",
     "preact": "https://esm.sh/preact@10.17.1",
     "preact/": "https://esm.sh/preact@10.17.1/",

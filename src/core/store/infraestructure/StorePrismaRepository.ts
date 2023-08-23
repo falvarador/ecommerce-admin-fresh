@@ -19,20 +19,18 @@ export class StorePrismaRepository implements StoreRepository {
 
   get(userId: string, storeId: string): Promise<Either<DataError, Store>> {
     return new Promise((resolve, _reject) => {
-      setTimeout(async () => {
-        try {
-          const store = await this.prisma.store.findUnique({
-            where: {
-              id: storeId,
-              userId,
-            },
-          });
+      try {
+        const store = this.prisma.store.findUnique({
+          where: {
+            id: storeId,
+            userId,
+          },
+        });
 
-          resolve(Either.right(store as Store));
-        } catch (error) {
-          resolve(Either.left({ kind: "UnexpectedError", error } as DataError));
-        }
-      }, 100);
+        resolve(Either.right(store as Store));
+      } catch (error) {
+        resolve(Either.left({ kind: "UnexpectedError", error } as DataError));
+      }
     });
   }
 

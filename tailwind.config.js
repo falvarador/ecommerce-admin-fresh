@@ -1,5 +1,6 @@
 /** @type {import('https://esm.sh/tailwindcss@3.3.3').Config} */
 module.exports = {
+  darkMode: "media",
   content: [
     "./src/routes/**/*.{tsx,ts}",
     "./src/islands/**/*.{tsx,ts}",

@@ -1,5 +1,3 @@
-import * as React from "preact/compat";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-preact";
 import { cn } from "@/src/lib/utils.ts";
 
